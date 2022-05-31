@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+{{>friendHead}}
+
+<body>
+    <div class="page-content page-container" id="page-content">
+        <div class="padding">
+            <div class="row container d-flex justify-content-center">
+                <div class="col-xl-6 col-md-12" id="mainCard">
+                    <div class="card user-card-full">
+                        <div class="row m-l-0 m-r-0 mh-100">
+                            <div class="col-sm-4 bg-c-lite-green user-profile mh-100">
+                                <div class="card-block text-center text-white">
+                                    <div class="m-b-25">
+                                        <img src="/images/avatars/{{userDp}}.png" class="img-radius" id="avatar"
+                                            alt="User-Profile-Image">
+                                    </div>
+                                    <h5 class="f-w-700">{{userName}}</h5>
+                                </div>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="card-block">
+                                    <h5 class="m-b-20 p-b-5 b-b-default f-w-600">Friends</h5>
+                                    <div class="container overflow-auto" id="friends">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jquery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- bootstap -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
+
+    <!-- custom -->
+    {{!--
+    <script src="/js/friends.js"></script> --}}
+    <script>
+
+        async function a() {
+            try {
+                let url = '/friends/{{id}}';
+                let res = await fetch(url);
+                let friends = await res.json();
+
+
+                function getFriendCode(friends) {
+                    let code = "";
+                    let i = 1;
+                    friends.forEach(friend => {
+                        if (i % 3 == 1) {
+                            code = code + `<div class="row">
+                    ${getcolcode(friend)}
+                    `;
+                            if (i == friends.length) {
+                                code = code + `<div class="col friend">
+                        </div>
+                        <div class="col friend">
+                        </div>
+                        </div>`;
+                            }
+                            console.log(friend);
+                            i++;
+                        } else if (i % 3 == 2) {
+                            code = code + getcolcode(friend);
+                            if (i == friends.length) {
+                                code = code + `<div class="col friend">
+                        </div>
+                        </div>`;
+                            }
+                            console.log(friend);
+                            i++;
+                        } else {
+                            code = code + `${getcolcode(friend)}
+                </div>`;
+                            console.log(friend);
+                            i++;
+                        }
+                    });
+
+
+                    return code;
+                }
+
+                document.getElementById("friends").innerHTML = getFriendCode(friends);
+                function getcolcode(friend) {
+                    return `<div class="col friend" onclick='redirectToUser("${friend.email}")'>
+            <div class="dp">
+                <img src="/images/avatars/${friend.dp}.png" alt="">
+            </div>
+               <h6> ${friend.name} </h6>
+          </div>`;
+                }
+
+
+            } catch (e) { console.log(e); }
+        }
+        a();
+        function redirectToUser(email) {
+            var url = '/user/' + email;
+            var form = $(`<form action="${url}" method="post">
+        <input type="text" name="currentUserId" value="${localStorage.getItem('name')}" />
+        </form>`);
+            $('body').append(form);
+            form.submit();
+        }
+
+// let friends = [
+//     { dp: "male-1", name: "Doggy ji" ,email:"dog@gmail.com"},
+//     { dp: "female-4", name: "IDk him" ,email:"white1@gmia.ocm"},
+//     { dp: "female-2", name: "Yashika Jindal" ,email:"himanshu@gmail.com"},
+//     { dp: "male-4", name: "Prateek Rawat" ,email:"himanshu@gmail.com"},
+//     { dp: "female-4", name: "Sanika Jain" ,email:"himanshu@gmail.com"},
+//     { dp: "female-3", name: "Himanshi Jain" ,email:"himanshu@gmail.com"},
+//     { dp: "female-3", name: "Himanshi Jain" ,email:"himanshu@gmail.com"},
+//     { dp: "female-3", name: "Himanshi Jain" ,email:"himanshu@gmail.com"},
+//     { dp: "female-3", name: "Himanshi Jain" ,email:"himanshu@gmail.com"},
+//     { dp: "female-3", name: "Himanshi Jain" ,email:"himanshu@gmail.com"},
+//     { dp: "male-3", name: "Prashanshu Rawat" ,email:"himanshu@gmail.com"}
+// ];
+
+    </script>
+</body>
+
+</html>

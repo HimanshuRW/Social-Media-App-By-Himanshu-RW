@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .input-hidden {
+            position: absolute;
+            left: -9999px;
+        }
+
+        input[type=radio]:checked+label>img {
+            border: 1px solid #fff;
+            box-shadow: 0 0 3px 3px #090;
+        }
+
+        /* Stuff after this is only to make things more pretty */
+        input[type=radio]+label>img {
+            border: 1px dashed #444;
+            width: 150px;
+            height: 150px;
+            transition: 500ms all;
+        }
+
+        input[type=radio]:checked+label>img {
+            transform:
+                rotateZ(-10deg) rotateX(10deg);
+        }
+    </style>
+</head>
+
+<body>
+        
+    <label id="label-avatar"><i class="zmdi zmdi-gender">Choose an avatar</i></label>
+    <div class="avatars-options">
+        <div class="avatar-input">
+            <input type="radio" name="avatar" id="img1" class="input-hidden" value="male-1" required />
+            <label class="avatar-option" for="img1">
+                <img src="/images/avatars/male-1.png" />
+            </label>
+        </div>
+        <div class="avatar-input">
+            <input type="radio" name="avatar" id="img2" class="input-hidden" value="male-2" required />
+            <label class="avatar-option" for="img2">
+                <img src="/images/avatars/male-2.png" />
+            </label>
+        </div>
+        <div class="avatar-input">
+            <input type="radio" name="avatar" id="img3" class="input-hidden" value="male-3" required />
+            <label class="avatar-option" for="img3">
+                <img src="/images/avatars/male-3.png" />
+            </label>
+        </div>
+        <div class="avatar-input">
+            <input type="radio" name="avatar" id="img4" class="input-hidden" value="male-4" required />
+            <label class="avatar-option" for="img4">
+                <img src="/images/avatars/male-4.png" />
+            </label>
+        </div>
+    </div>
+</body>
+
+</html>
